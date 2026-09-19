@@ -22,16 +22,58 @@ This repository contains my solutions for the **Python for Data Science** track 
 
 ---
 
+## Module 0 — Starting: Exercise Breakdown
+
+General rules that apply throughout: Python 3.10, explicit imports only (`import numpy as np`, never `from x import *`), no global variables, and — from Exercise 05 onward — every script must be wrapped in a `main()` guarded by `if __name__ == "__main__":`, with full docstring coverage (`__doc__`) and `flake8` compliance.
+
+| Ex | Directory | File(s) to turn in | Goal |
+| :--- | :--- | :--- | :--- |
+| 00 | `ex00/` | `Hello.py` | Mutate list/tuple/set/dict in place to print custom "Hello X" greetings. |
+| 01 | `ex01/` | `format_ft_time.py` | Use `time`/`datetime` to print seconds since epoch (with commas + scientific notation) and a formatted date string. |
+| 02 | `ex02/` | `find_ft_type.py` | `all_thing_is_obj(object) -> int`: print the object's type in a readable sentence, return `42`. No code runs when the file is executed directly. |
+| 03 | `ex03/` | `NULL_not_found.py` | `NULL_not_found(object) -> int`: identify all "null-like" values (`None`, `NaN`, `0`, `""`, `False`), return `0`/`1` for success/error. |
+| 04 | `ex04/` | `whatis.py` | CLI script: odd/even check on a single int arg via `sys.argv`; `AssertionError` on wrong arg count or non-integer input. |
+| 05 | `ex05/` | `building.py` | First real `main()`-based program: count upper/lower/punctuation/space/digit chars in a string arg (or prompt if none given). |
+| 06 | `ex06/` | `ft_filter.py`, `filterstring.py` | Part 1: reimplement `filter()` using a list comprehension. Part 2: CLI program filtering words by length, using list comprehension **and** lambda. |
+| 07 | `ex07/` | `sos.py` | Encode a string arg into Morse code using a dictionary lookup table. |
+| 08 | `ex08/` | `Loading.py` | Reimplement `tqdm`-style progress bar as a generator (`ft_tqdm`) using `yield`. |
+| 09 | `ex09/` | `*.py`, `*.txt`, `*.toml`, `README.md`, `LICENSE` | Build and package `ft_package` so it's pip-installable and importable (`pip show -v ft_package` must work). |
+
+### Progress checklist
+
+- [ ] ex00 — Hello.py
+- [ ] ex01 — format_ft_time.py
+- [ ] ex02 — find_ft_type.py
+- [ ] ex03 — NULL_not_found.py
+- [ ] ex04 — whatis.py
+- [ ] ex05 — building.py
+- [ ] ex06 — ft_filter.py / filterstring.py
+- [ ] ex07 — sos.py
+- [ ] ex08 — Loading.py
+- [ ] ex09 — ft_package
+
+Per-exercise definition of done:
+- [ ] Output matches the subject exactly (including `cat -e` line-ending checks where specified)
+- [ ] Invalid input triggers the correct `AssertionError` message
+- [ ] `main()` + `if __name__ == "__main__":` present (ex05 onward)
+- [ ] All functions have docstrings
+- [ ] Passes `flake8` (aliased as `norminette`)
+- [ ] No global variables
+
+---
+
 ## Getting Started
 
 ### Prerequisites
 
 * Python 3.10+
-* package manager (`pip` or `conda`)
+* A package manager (`pip` or `conda`)
 
-### Installation & Setup
+### Running an exercise
 
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/Cephei14/Python-For-Data-Science.git](https://github.com/Cephei14/Python-For-Data-Science.git)
-   cd Python-For-Data-Science
+Each exercise lives in its own `exXX/` directory under the relevant module folder. Example:
+
+```bash
+cd "Python - 0 - Starting/ex00"
+python Hello.py | cat -e
+```

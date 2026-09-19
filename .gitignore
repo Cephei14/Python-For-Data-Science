@@ -1,1 +1,3 @@
-en.subject.pdf
+*.pdf
+*.md
+*tutorial.md
