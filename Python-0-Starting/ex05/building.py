@@ -40,6 +40,7 @@ def read_text():
 
 
 def main():
+    """The main function entry handling input and assertion errors """
     try:
         read_text()
     except AssertionError as error:
