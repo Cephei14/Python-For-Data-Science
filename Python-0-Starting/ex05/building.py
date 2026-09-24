@@ -29,7 +29,7 @@ def count_text(text: str) -> None:
 
 
 def read_text():
-    """Return CLI args if they exist if not it wait prompt and return it"""
+    """Read command-line or standard-input text and count its characters."""
     if len(sys.argv) == 2:
         count_text(sys.argv[1])
     elif len(sys.argv) > 2:
