@@ -13,7 +13,7 @@ def validate_args():
     if len(args) != 2:
         raise AssertionError("the arguments are bad")
     bad_chars = [c for c in args[0] if c in string.punctuation
-                or not c.isprintable() or (c.isspace() and c != ' ')]
+                 or not c.isprintable() or (c.isspace() and c != ' ')]
     if bad_chars:
         raise AssertionError("the arguments are bad")
     try:
