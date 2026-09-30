@@ -2,6 +2,7 @@ import numpy as np
 
 
 def _check_numbers(values, name: str) -> None:
+    """Raise an error if the values are wrong and just pass if they're valid"""
     if not isinstance(values, list):
         raise TypeError(f"{name} must be a list")
     for v in values:
@@ -18,7 +19,7 @@ def give_bmi(height: list[int | float],
     _check_numbers(weight, "weight")
     if len(height) != len(weight):
         raise ValueError("lists must be the same length")
-    if any(h < 1 or w < 1 for h, w in zip(height, weight)):
+    if any(h <= 0 or w <= 0 for h, w in zip(height, weight)):
         raise ValueError("Unrealistic value(s)")
     h_arr = np.array(height, dtype=float)
     w_arr = np.array(weight, dtype=float)
