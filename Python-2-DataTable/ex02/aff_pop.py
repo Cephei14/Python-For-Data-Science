@@ -4,34 +4,39 @@ from matplotlib.ticker import EngFormatter
 
 
 def decode(text: str | float) -> float:
-    """"""
+    """Convert values like '1.2k', '3M', '2B' to float. Invalid -> nan."""
     formats = {"k": 1e3, "M": 1e6, "B": 1e9}
     if isinstance(text, (int, float)):
         return float(text)
     text = text.strip()
     try:
-        n = float(text)
+        if text and text[-1] in formats:
+            return float(text[:-1]) * formats[text[-1]]
+        return float(text)
     except ValueError:
-        n = float(text[:-1])
-    if text[-1] in formats:
-        return n * formats[text[-1]]
-    return n
+        return float("nan")
+
 
 def main():
-    """The one"""
+    """Plot the population of Japan versus Morocco from 1800 to 2050."""
+    data = load("population_total.csv")
+    if data is None:
+        return
+    curves = {}
+    years = []
     try:
-        data = load("population_total.csv")
-        assert data is not None, "No data"
-        mask = (data["country"] == "Japan") | (data["country"] == "Morocco")
-        val = data.loc[mask, "1800":"2050"].values.tolist()
-        idx = data.loc[mask, "1800":"2050"].index.tolist()
-        x = [[decode(i)] for i in val[0]]
-        y = [[decode(j)] for j in val[1]]
-    except AssertionError as e:
-        print(f"Error: {e}")
-    years = list(range(1800, 2051))
-    plt.plot(years, x, label="Japan")
-    plt.plot(years, y, label="Morocco")
+        for country in ("Japan", "Morocco"):
+            row = data.loc[data["country"] == country, "1800":"2050"]
+            if row.empty:
+                print(f"Error: country '{country}' not found.")
+                return
+            years = [int(col) for col in row.columns]
+            curves[country] = [decode(v) for v in row.iloc[0]]
+    except KeyError as e:
+        print(f"Error: missing column {e}")
+        return
+    for country, values in curves.items():
+        plt.plot(years, values, label=country)
     plt.xlabel("Year")
     plt.ylabel("Population")
     plt.title("Population Projections")
@@ -39,8 +44,6 @@ def main():
     plt.legend()
     plt.show()
 
-
-    
 
 if __name__ == "__main__":
     main()

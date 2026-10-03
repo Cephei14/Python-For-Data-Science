@@ -13,3 +13,4 @@ def load(path: str) -> pd.DataFrame | None:
         return None
     print(f"Loading dataset of dimensions {data.shape}")
     return data
+# print(load("life_expectancy_years.csv"))

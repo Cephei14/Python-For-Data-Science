@@ -3,24 +3,29 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    """Extract the years and life expectancies of one country,
-    then Load the dataset and plot the life expectancy of a country."""
+    """Load the dataset and plot the life expectancy of Japan."""
+    data = load("life_expectancy_years.csv")
+    if data is None:
+        return
     try:
-        data = load("life_expectancy_years.csv")
-        assert data is not None, "No data"
-        mask = data["country"] == "Qatar"
-        rows = data[mask]
-    except AssertionError as e:
-        print(f"Error: {e}")
+        rows = data[data["country"] == "Japan"]
+    except KeyError as e:
+        print(f"Error: missing column {e}")
+        return
     if rows.empty:
-        raise ValueError("Country 'Japan' not found.")
+        print("Error: country 'Japan' not found.")
+        return
     series = rows.iloc[0].drop("country")
-    years = [int(year) for year in series.index]
-    values = [float(value) for value in series.values]
+    try:
+        years = [int(year) for year in series.index]
+        values = [float(value) for value in series.values]
+    except ValueError as e:
+        print(f"Error: bad data format ({e})")
+        return
     plt.plot(years, values)
     plt.title("Japan Life expectancy Projections")
-    plt.xlabel("Life expectancy")
-    plt.ylabel("Year")
+    plt.xlabel("Year")
+    plt.ylabel("Life expectancy")
     plt.show()
 
 

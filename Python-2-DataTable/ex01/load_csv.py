@@ -11,4 +11,5 @@ def load(path: str) -> pd.DataFrame | None:
     if data.empty:
         print("Error: the dataset is empty.")
         return None
+    print(f"Loading dataset of dimensions {data.shape}")
     return data
