@@ -1,12 +1,9 @@
-import pandas as pd
+import matplotlib.pyplot as plt
 
-def try_read(path: str)-> pd.DataFrame | None:
-    """Return the DataFrame, or None if the file cannot be read."""
-    try:
-        f = pd.read_csv(path)
-        return pd.DataFrame(f)
-    except (OSError, ValueError, TypeError) as error:
-        print(f"Error: {error}")
-        return None
-
-print(type(try_read("empty.csv")))
+plt.plot([1, 2, 3], [1, 2, 3], label="A")
+plt.plot([1, 2, 3], [3, 2, 1], label="B")
+plt.title("Demo")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.show()
